@@ -2,11 +2,11 @@
 
 MaQueOS是一个开源的基于LoongArch架构的教学版操作系统。作为一个教学版操作系统，MaQueOS的代码虽然只有1000多行，但是它实现了操作系统最核心的功能子系统：进程管理、内存管理、文件系统、中断管理和外设驱动，并为应用程序提供了16个系统调用接口。
 
-
 MaQueOS由Linux 0.11内核深度裁剪而来，并完成了从x86架构到LoongArch架构的移植。其中，对所有外设驱动程序(硬盘、键盘和显示器)进行了重写。除此之外，不同于Linux 0.11支持MINIX文件系统、a.out可执行文件和基于管道操作的进程间通信机制，MaQueOS支持自定义的xtfs格式的文件系统、xt格式的可执行文件和基于共享内存的进程间通信机制。
 
-
 其中，xtfs文件系统是一个极小型文件系统，仅用100多行代码就实现了文件的创建删除、打开关闭和读写操作，以及文件系统挂载功能；xt可执行文件包括一个512字节大小的xt可执行文件头和代码数据被链接在一起的二进制可执行代码，因此对xt可执行文件的加载过程相当简洁；基于共享内存的进程间通信机制的实现也比基于管道操作的进程间通信机制实现机制更简单高效。
+
+
 
 ## 一、环境部署
 
@@ -42,19 +42,34 @@ sudo apt install libspice-server-dev libsdl2-2.0-0 libfdt-dev libusbredirparser-
 git clone https://gitee.com/dslab-lzu/maqueos.git
 ```
 
+5、交叉编译器以及实验工具安装
+
+```bash
+wget https://github.com/LoongsonLab/maqueos/releases/download/loongarch64-unknown-linux-gnu-12.0.0/loongarch64-unknown-linux-gnu.tgz
+
+tar zxf loongarch64-unknown-linux-gnu.tgz
+
+# 查看GCC版本信息
+loongarch64-unknown-linux-gnu-gcc -v
+```
+
+6、文档指南
+
+本实验的相关文档资料在[实验指导书](doc/实验指导书.pdf)
+
 ## 二、仓库目录介绍
 
-本仓库中包含《MaQueOS：基于龙芯LoongArch架构的教学版操作系统》教材中12章内容对应的实验代码，分别位于code*目录中。
-例如第1章的实验代码在code1中，第2章在code2中，以此类推。
+本仓库中包含《MaQueOS：基于龙芯LoongArch架构的教学版操作系统》教材中12章内容对应的实验代码，分别位于lab*目录中。
+例如第1章的实验代码在lab1中，第2章在lab2中，以此类推。
 
 ```
 .
-├── cross-tool  // 交叉编译环境
+├── cross-tool  // 交叉编译环境, 将上面5中的工具链，安装在此目录下
 ├── README.md
-├── code1       // 第1章实验代码
-├── code2       // 第2章实验代码
+├── lab1       // 第1章实验代码
+├── lab2       // 第2章实验代码
 ├── ...
-└── code12      // 第12章实验代码
+└── lab12      // 第12章实验代码
     ├── run             // 实验目录
     ├── xtfs            // xtfs目录
     │   ├── bin                 // MaQueOS应用程序
